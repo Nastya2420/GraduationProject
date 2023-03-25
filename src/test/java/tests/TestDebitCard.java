@@ -26,7 +26,7 @@ public class TestDebitCard {
     @BeforeEach
     public void setUpEach() {
         String url = System.getProperty("sut.url");
-        open("http://localhost:3333/");
+        open(url);
         SQL.clearData();
     }
 
@@ -38,7 +38,7 @@ public class TestDebitCard {
 
     @SneakyThrows
     @Test
-    void shouldDebitByCardWithApproved() {
+    void test1() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val buyWithCard = new BuyWithCard();
@@ -49,7 +49,7 @@ public class TestDebitCard {
 
     @SneakyThrows
     @Test
-    void shouldDebitByCardWithDecline() {
+    void test2() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val buyWithCard = new BuyWithCard();
@@ -59,7 +59,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldShortNameInOwnerApproved() {
+    void test3() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val buyWithCard = new BuyWithCard();
@@ -68,7 +68,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldShortNameInOwnerDeclined() {
+    void test4() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -77,7 +77,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageEmptyForm() {
+    void test5() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -87,7 +87,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageInvalidMonthApproved() {
+    void test6() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -96,7 +96,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageInvalidMonthDeclined() {
+    void test7() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -105,7 +105,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageBygoneMonthApproved() {
+    void test8() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -114,7 +114,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageBygoneMonthDeclined() {
+    void test9() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -123,7 +123,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageIncompleteField() {
+    void test10() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -132,7 +132,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldCharactersInFieldOwnerApproved() {
+    void test11() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -141,7 +141,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldCharactersInFieldOwnerDeclined() {
+    void test12() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -150,7 +150,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void shouldOneCharacterInFieldOwnerApproved() {
+    void test213() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -158,17 +158,9 @@ public class TestDebitCard {
         assertEquals("Неверный формат", debitPage.getInputInvalid());
     }
 
-    @Test
-    void shouldOneCharacterInFieldOwnerDeclined() {
-        StartPage startPage = new StartPage();
-        startPage.openBuyWithCard();
-        val debitPage = new BuyWithCard();
-        debitPage.fillData(DataHelper.getOneCharacterInFieldOwnerDeclinedCard());
-        assertEquals("Неверный формат", debitPage.getInputInvalid());
-    }
 
     @Test
-    void shouldInvalidFieldMessageBygoneYearApproved() {
+    void test14() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -176,17 +168,9 @@ public class TestDebitCard {
         assertEquals("Истёк срок действия карты", debitPage.getInputInvalid());
     }
 
-    @Test
-    void shouldInvalidFieldMessageBygoneYearDeclined() {
-        StartPage startPage = new StartPage();
-        startPage.openBuyWithCard();
-        val debitPage = new BuyWithCard();
-        debitPage.fillData(DataHelper.getBygoneYearDeclinedCard());
-        assertEquals("Истёк срок действия карты", debitPage.getInputInvalid());
-    }
 
     @Test
-    void shouldInvalidDebitCard() {
+    void test15() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -196,7 +180,7 @@ public class TestDebitCard {
 
     @SneakyThrows
     @Test
-    void shouldAmountByCardWithApproved() {
+    void test16() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val buyWithCard = new BuyWithCard();

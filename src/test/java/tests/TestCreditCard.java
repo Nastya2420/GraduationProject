@@ -41,7 +41,7 @@ public class TestCreditCard {
 
     @SneakyThrows
     @Test
-    void shouldCreditByCardWithStatusApproved() {
+    void test1() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -53,7 +53,7 @@ public class TestCreditCard {
 
     @SneakyThrows
     @Test
-    void shouldCreditByCardWithStatusDecline() {
+    void test2() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -63,7 +63,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldShortNameInOwnerApproved() {
+    void test3() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -72,7 +72,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldShortNameInOwnerDeclined() {
+    void test4() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -81,7 +81,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageEmptyForm() {
+    void test5() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -91,7 +91,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageInvalidMonthApproved() {
+    void test6() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -100,7 +100,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageInvalidMonthDeclined() {
+    void test7() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -109,7 +109,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageBygoneMonthApproved() {
+    void test8() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -118,7 +118,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageBygoneMonthDeclined() {
+    void test9() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -127,7 +127,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageIncompleteField() {
+    void test10() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -136,7 +136,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldCharactersInFieldOwnerApproved() {
+    void test11() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -145,7 +145,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldCharactersInFieldOwnerDeclined() {
+    void test12() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -154,7 +154,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldOneCharacterInFieldOwnerApprovedCard() {
+    void test13() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -163,7 +163,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldOneCharacterInFieldOwnerDeclinedCard() {
+    void test14() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -172,7 +172,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageBygoneYearApprovedCard() {
+    void test15() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -181,7 +181,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidFieldMessageBygoneYearDeclinedCard() {
+    void test16() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCredit();
         val buyWithCredit = new BuyWithCredit();
@@ -190,7 +190,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void shouldInvalidDebitCard() {
+    void test17() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val debitPage = new BuyWithCard();
@@ -200,7 +200,7 @@ public class TestCreditCard {
 
     @SneakyThrows
     @Test
-    void shouldAmountByCardWithDeclined() {
+    void test18() {
         StartPage startPage = new StartPage();
         startPage.openBuyWithCard();
         val buyWithCard = new BuyWithCard();
