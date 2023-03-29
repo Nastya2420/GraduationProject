@@ -8,7 +8,7 @@ import org.apache.commons.dbutils.handlers.ScalarHandler;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class SQL {
+public class SqlHelper {
     static String url = System.getProperty("db.url");
     static String user = System.getProperty("db.user");
     static String password = System.getProperty("db.password");
@@ -46,18 +46,18 @@ public class SQL {
         var runner = new QueryRunner();
         try
                 (var conn = DriverManager.getConnection(url, user, password)) {
-            val amount = "SELECT amount FROM payment_entity";
+            var amount = "SELECT amount FROM payment_entity";
             return runner.query(conn, amount, new ScalarHandler<>());
         }
     }
 
     public static String getDebitStatus() throws SQLException {
-        val statusSQL = "SELECT status FROM payment_entity";
+        var statusSQL = "SELECT status FROM payment_entity";
         return getStatus(statusSQL);
     }
 
     public static String getCreditStatus() throws SQLException {
-        val statusSQL = "SELECT status FROM credit_request_entity";
+        var statusSQL = "SELECT status FROM credit_request_entity";
         return getStatus(statusSQL);
     }
 

@@ -1,4 +1,4 @@
-package Page;
+package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import data.CardInfo;
@@ -10,7 +10,8 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class BuyWithCredit {
+
+public class BuyWithCard {
     private SelenideElement heading = $$(".button").find(exactText("Купить"));
     private SelenideElement numberCard = $("input[type=\"text\"][placeholder=\"0000 0000 0000 0000\"]");
     private SelenideElement monthRelease = $("input[type=\"text\"][placeholder=\"08\"]");
@@ -18,15 +19,16 @@ public class BuyWithCredit {
     private SelenideElement owner = $$(".input").find(exactText("Владелец")).$(".input__control");
     private SelenideElement codeSecurity = $("input[type=\"text\"][placeholder=\"999\"]");
     private SelenideElement button = $$(".button").find(exactText("Продолжить"));
-    private SelenideElement statusOK = $(".notification_status_ok");
-    private SelenideElement statusError = $(".notification_status_error");
+
+    private final SelenideElement statusOk = $(".notification_status_ok");
+    private final SelenideElement statusError = $(".notification_status_error");
     private SelenideElement inputInvalid = $(".input__sub");
 
-    public BuyWithCredit() {
+    public BuyWithCard() {
         heading.shouldBe(visible);
     }
     public void waitNotificationOk() {
-        statusOK.shouldBe(visible, Duration.ofMillis(15000));
+        statusOk.shouldBe(visible, Duration.ofMillis(15000));
     }
     public void waitNotificationError() {
         statusError.shouldBe(visible, Duration.ofMillis(15000));
