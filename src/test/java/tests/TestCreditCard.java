@@ -35,7 +35,6 @@ public class TestCreditCard {
         SelenideLogger.removeListener("allure");
     }
 
-
     @SneakyThrows
     @Test
     void test1() {

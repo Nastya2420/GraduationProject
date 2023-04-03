@@ -39,7 +39,7 @@ public class TestDebitCard {
         var buyWithCard = startPage.openBuyWithCard();
         buyWithCard.fillData(DataHelper.getApprovedCard());
         buyWithCard.waitNotificationOk();
-        assertEquals("APPROVED", SqlHelper.getDebitStatus());
+        assertEquals("APPROVED", SqlHelper.getAmountStatus());
     }
 
     @SneakyThrows
@@ -49,7 +49,7 @@ public class TestDebitCard {
         var buyWithCard = startPage.openBuyWithCard();
         buyWithCard.fillData(DataHelper.getDeclinedCard());
         buyWithCard.waitNotificationError();
-        assertEquals("DECLINED", SqlHelper.getDebitStatus());
+        assertEquals("DECLINED", SqlHelper.getAmountStatus());
     }
 
     @Test
