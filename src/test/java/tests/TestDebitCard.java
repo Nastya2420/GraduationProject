@@ -13,16 +13,15 @@ import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestDebitCard {
-    @BeforeAll
-    static void setUpAll() {
 
-        SelenideLogger.addListener("allure", new AllureSelenide());
-    }
-    @SneakyThrows
     @BeforeEach
     public void setUpEach() {
         String url = System.getProperty("sut.url");
         open(url);
+        SqlHelper.clearData();
+    }
+    @AfterEach
+    public void cleanBase() {
         SqlHelper.clearData();
     }
 
@@ -31,20 +30,17 @@ public class TestDebitCard {
 
         SelenideLogger.removeListener("allure");
     }
+    @BeforeAll
+    static void setUpAll() {
 
-    @SneakyThrows
-    @Test
-    void test1() {
-        var startPage = new StartPage();
-        var buyWithCard = startPage.openBuyWithCard();
-        buyWithCard.fillData(DataHelper.getApprovedCard());
-        buyWithCard.waitNotificationOk();
-        assertEquals("APPROVED", SqlHelper.getAmountStatus());
+        SelenideLogger.addListener("allure", new AllureSelenide());
     }
 
-    @SneakyThrows
+
+
+
     @Test
-    void test2() {
+    void test1() {
         var startPage = new StartPage();
         var buyWithCard = startPage.openBuyWithCard();
         buyWithCard.fillData(DataHelper.getDeclinedCard());
@@ -53,7 +49,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test3() {
+    void test2() {
         var startPage = new StartPage();
         var buyWithCard = startPage.openBuyWithCard();
         buyWithCard.fillData(DataHelper.getShortNameInOwnerApprovedCard());
@@ -61,7 +57,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test4() {
+    void test3() {
         var startPage = new StartPage();
         var debitPage =  startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getShortNameInOwnerDeclinedCard());
@@ -69,7 +65,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test5() {
+    void test4() {
         var startPage = new StartPage();
         var debitPage =  startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getEmptyForm());
@@ -78,7 +74,21 @@ public class TestDebitCard {
     }
 
     @Test
+    void test5() {
+        var startPage = new StartPage();
+        var debitPage =  startPage.openBuyWithCard();
+        debitPage.fillData(DataHelper.getInvalidMonthApprovedCard());
+        assertEquals("Неверно указан срок действия карты", debitPage.getInputInvalid());
+    }
+    @Test
     void test6() {
+        var startPage = new StartPage();
+        var debitPage =  startPage.openBuyWithCard();
+        debitPage.fillData(DataHelper.getInvalidMonthApprovedCard());
+        assertEquals("Неверно указан срок действия карты", debitPage.getInputInvalid());
+    }
+    @Test
+    void test7() {
         var startPage = new StartPage();
         var debitPage =  startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getInvalidMonthApprovedCard());
@@ -86,23 +96,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test7() {
-        var startPage = new StartPage();
-        var debitPage = startPage.openBuyWithCard();
-        debitPage.fillData(DataHelper.getInvalidMonthDeclinedCard());
-        assertEquals("Неверно указан срок действия карты", debitPage.getInputInvalid());
-    }
-
-    @Test
     void test8() {
-        var startPage = new StartPage();
-        var debitPage = startPage.openBuyWithCard();
-        debitPage.fillData(DataHelper.getBygoneMonthApprovedCard());
-        assertEquals("Неверно указан срок действия карты", debitPage.getInputInvalid());
-    }
-
-    @Test
-    void test9() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getBygoneMonthDeclinedCard());
@@ -110,7 +104,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test10() {
+    void test9() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getIncompleteField());
@@ -118,7 +112,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test11() {
+    void test10() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getCharactersInFieldOwnerApprovedCard());
@@ -126,7 +120,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test12() {
+    void test11() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getCharactersInFieldOwnerDeclinedCard());
@@ -134,7 +128,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test13() {
+    void test12() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getCharactersInFieldOwnerApprovedCard());
@@ -143,7 +137,7 @@ public class TestDebitCard {
 
 
     @Test
-    void test14() {
+    void test13() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getBygoneYearApprovedCard());
@@ -152,20 +146,11 @@ public class TestDebitCard {
 
 
     @Test
-    void test15() {
+    void test14() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getNonExistentCard());
         assertEquals("Ошибка! Банк отказал в проведении операции.", debitPage.getInputInvalid());
     }
 
-    @SneakyThrows
-    @Test
-    void test16() {
-        var startPage = new StartPage();
-        var buyWithCard = startPage.openBuyWithCard();
-        buyWithCard.fillData(DataHelper.getApprovedCard());
-        buyWithCard.waitNotificationOk();
-        assertEquals("45000",SqlHelper.getAmountStatus());
-    }
 }

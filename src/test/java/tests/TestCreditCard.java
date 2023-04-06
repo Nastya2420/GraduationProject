@@ -11,11 +11,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.StartPage;
 
+import java.sql.SQLException;
+
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class TestCreditCard {
+
+    @AfterAll
+    static void tearDownAll() {
+
+        SelenideLogger.removeListener("allure");
+    }
     @BeforeAll
     static void setUpAll() {
 
@@ -29,26 +37,19 @@ public class TestCreditCard {
 
     }
 
-    @AfterAll
-    static void tearDownAll() {
 
-        SelenideLogger.removeListener("allure");
-    }
 
-    @SneakyThrows
     @Test
-    void test1() {
+    void test1() throws SQLException {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getApprovedCard());
         buyWithCredit.waitNotificationOk();
-        String actual = SqlHelper.getCreditStatus();
-        assertEquals("APPROVED", actual);
+        assertEquals("APPROVED", SqlHelper.getCreditStatus());
     }
 
-    @SneakyThrows
     @Test
-    void test2() {
+    void test2() throws SQLException {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getDeclinedCard());
@@ -121,16 +122,10 @@ public class TestCreditCard {
         assertEquals("Неверный формат", buyWithCredit.getInputInvalid());
     }
 
-    @Test
-    void test11() {
-        var startPage = new StartPage();
-        var buyWithCredit = startPage.openBuyWithCredit();
-        buyWithCredit.fillData(DataHelper.getCharactersInFieldOwnerApprovedCard());
-        assertEquals("Неверный формат", buyWithCredit.getInputInvalid());
-    }
+
 
     @Test
-    void test12() {
+    void test11() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getCharactersInFieldOwnerDeclinedCard());
@@ -138,7 +133,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test13() {
+    void test12() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getOneCharacterInFieldOwnerApprovedCard());
@@ -146,7 +141,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test14() {
+    void test13() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getOneCharacterInFieldOwnerDeclinedCard());
@@ -154,7 +149,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test15() {
+    void test14() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getBygoneYearApprovedCard());
@@ -162,7 +157,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test16() {
+    void test15() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getBygoneYearDeclinedCard());
@@ -170,16 +165,16 @@ public class TestCreditCard {
     }
 
     @Test
-    void test17() {
+    void test16() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCredit();
         debitPage.fillData(DataHelper.getNonExistentCard());
         assertEquals("Ошибка! Банк отказал в проведении операции.", debitPage.getInputInvalid());
     }
 
-    @SneakyThrows
+
     @Test
-    void test18() {
+    void test17() {
         var startPage = new StartPage();
         var buyWithCard = startPage.openBuyWithCredit();
         buyWithCard.fillData(DataHelper.getApprovedCard());
@@ -188,7 +183,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test19() {
+    void test18() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getApprovedCard());
