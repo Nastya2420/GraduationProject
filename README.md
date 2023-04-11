@@ -25,9 +25,11 @@
 
 ## Запуск тестов
 
-В новой вкладке терминала ввести команду: 
-
-`.\gradlew clean test`
+В новой вкладке терминала ввести команду:
+- Запуск под MySQL `./gradlew clean test "-Ddb.url=jdbc:mysql://localhost:3306/app"`
+- Запуск под PostgreSQL `./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"`
+- Запуск всех тестов `.\gradlew clean test`
+- Запуск всех тестов с информацией  `.\gradlew clean test --inf`
 
 Перезапуск приложения и тестов
 

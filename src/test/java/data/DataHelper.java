@@ -13,13 +13,13 @@ public class DataHelper {
     }
     private static String getMonth() {
         LocalDate localDate = LocalDate.now();
-        int month = localDate.getMonthValue();
+        var month = localDate.getMonthValue();
         return String.format("%02d", month);
     }
 
     private static String getBygoneMonth() {
         LocalDate localDate = LocalDate.now();
-        int month = localDate.minusMonths(1).getMonthValue();
+        var month = localDate.minusMonths(1).getMonthValue();
         return String.format("%02d", month);
     }
 
@@ -30,7 +30,7 @@ public class DataHelper {
 
     private static String getBygoneYear() {
         LocalDate localDate = LocalDate.now();
-        int year = localDate.minusYears(1).getYear();
+        var year = localDate.minusYears(1).getYear();
         return String.format("%02d", year);
     }
 
@@ -41,7 +41,7 @@ public class DataHelper {
 
     private static String getCvc() {
         Random random = new Random();
-        int cvc = random.nextInt((1000 - 1));
+        var cvc = random.nextInt((1000 - 1));
         return String.format("%03d", cvc);
     }
 

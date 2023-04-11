@@ -5,7 +5,6 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import data.DataHelper;
 import data.SqlHelper;
 import io.qameta.allure.selenide.AllureSelenide;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.*;
 import pages.StartPage;
 
@@ -40,16 +39,24 @@ public class TestDebitCard {
 
 
     @Test
-    void test1() {
+    void shouldDebitByCardWithApproved() {
+        var startPage = new StartPage();
+        var buyWithCard = startPage.openBuyWithCard();
+        buyWithCard.fillData(DataHelper.getApprovedCard());
+        buyWithCard.waitNotificationOk();
+        assertEquals("APPROVED", SqlHelper.getRowsAmountFromPaymentEntityTable());
+    }
+    @Test
+    void shouldDebitByCardWithDecline() {
         var startPage = new StartPage();
         var buyWithCard = startPage.openBuyWithCard();
         buyWithCard.fillData(DataHelper.getDeclinedCard());
         buyWithCard.waitNotificationError();
-        assertEquals("DECLINED", SqlHelper.getAmountStatus());
+        assertEquals("DECLINED", SqlHelper.getRowsAmountFromPaymentEntityTable());
     }
 
     @Test
-    void test2() {
+    void shouldShortNameInOwnerApproved() {
         var startPage = new StartPage();
         var buyWithCard = startPage.openBuyWithCard();
         buyWithCard.fillData(DataHelper.getShortNameInOwnerApprovedCard());
@@ -57,7 +64,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test3() {
+    void shouldShortNameInOwnerDeclined() {
         var startPage = new StartPage();
         var debitPage =  startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getShortNameInOwnerDeclinedCard());
@@ -65,7 +72,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test4() {
+    void shouldInvalidFieldMessageEmptyForm() {
         var startPage = new StartPage();
         var debitPage =  startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getEmptyForm());
@@ -74,21 +81,21 @@ public class TestDebitCard {
     }
 
     @Test
-    void test5() {
+    void shouldInvalidFieldMessageInvalidMonthApproved() {
         var startPage = new StartPage();
         var debitPage =  startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getInvalidMonthApprovedCard());
         assertEquals("Неверно указан срок действия карты", debitPage.getInputInvalid());
     }
     @Test
-    void test6() {
+    void shouldInvalidFieldMessageInvalidMonthDeclined() {
         var startPage = new StartPage();
         var debitPage =  startPage.openBuyWithCard();
-        debitPage.fillData(DataHelper.getInvalidMonthApprovedCard());
+        debitPage.fillData(DataHelper.getInvalidMonthDeclinedCard());
         assertEquals("Неверно указан срок действия карты", debitPage.getInputInvalid());
     }
     @Test
-    void test7() {
+    void shouldInvalidFieldMessageBygoneMonthApproved() {
         var startPage = new StartPage();
         var debitPage =  startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getInvalidMonthApprovedCard());
@@ -96,7 +103,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test8() {
+    void shouldInvalidFieldMessageBygoneMonthDeclined() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getBygoneMonthDeclinedCard());
@@ -104,7 +111,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test9() {
+    void shouldInvalidFieldMessageIncompleteField() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getIncompleteField());
@@ -112,7 +119,7 @@ public class TestDebitCard {
     }
 
     @Test
-    void test10() {
+    void shouldCharactersInFieldOwnerApproved() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getCharactersInFieldOwnerApprovedCard());
@@ -120,33 +127,46 @@ public class TestDebitCard {
     }
 
     @Test
-    void test11() {
+    void shouldCharactersInFieldOwnerDeclined() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getCharactersInFieldOwnerDeclinedCard());
         assertEquals("Неверный формат", debitPage.getInputInvalid());
     }
-
     @Test
-    void test12() {
+    void shouldOneCharacterInFieldOwnerApproved() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getCharactersInFieldOwnerApprovedCard());
         assertEquals("Неверный формат", debitPage.getInputInvalid());
     }
-
+    @Test
+    void shouldOneCharacterInFieldOwnerDeclined() {
+        var startPage = new StartPage();
+        var debitPage = startPage.openBuyWithCard();
+        debitPage.fillData(DataHelper.getOneCharacterInFieldOwnerDeclinedCard());
+        assertEquals("Неверный формат", debitPage.getInputInvalid());
+    }
 
     @Test
-    void test13() {
+    void shouldInvalidFieldMessageBygoneYearApproved() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getBygoneYearApprovedCard());
         assertEquals("Истёк срок действия карты", debitPage.getInputInvalid());
     }
 
+    @Test
+    void shouldInvalidFieldMessageBygoneYearDeclined() {
+        var startPage = new StartPage();
+        var debitPage = startPage.openBuyWithCard();
+        debitPage.fillData(DataHelper.getBygoneYearDeclinedCard());
+        assertEquals("Истёк срок действия карты", debitPage.getInputInvalid());
+    }
+
 
     @Test
-    void test14() {
+    void shouldInvalidDebitCard() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCard();
         debitPage.fillData(DataHelper.getNonExistentCard());

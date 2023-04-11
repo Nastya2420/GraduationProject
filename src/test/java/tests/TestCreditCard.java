@@ -4,7 +4,6 @@ import com.codeborne.selenide.logevents.SelenideLogger;
 import data.DataHelper;
 import data.SqlHelper;
 import io.qameta.allure.selenide.AllureSelenide;
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -40,25 +39,25 @@ public class TestCreditCard {
 
 
     @Test
-    void test1() throws SQLException {
+    void creditingToTheCardIsApproved() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getApprovedCard());
         buyWithCredit.waitNotificationOk();
-        assertEquals("APPROVED", SqlHelper.getCreditStatus());
+        assertEquals("APPROVED", SqlHelper.getRowAmountFromOrderEntityTable());
     }
 
     @Test
-    void test2() throws SQLException {
+    void creditingToTheCardIsDeclined()  {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getDeclinedCard());
         buyWithCredit.waitNotificationError();
-        assertEquals("DECLINED", SqlHelper.getCreditStatus());
+        assertEquals("DECLINED", SqlHelper.getRowAmountFromOrderEntityTable());
     }
 
     @Test
-    void test3() {
+    void shouldCreditByCardWithStatusApproved() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getShortNameInOwnerApprovedCard());
@@ -66,7 +65,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test4() {
+    void shouldShortNameInOwnerDeclined() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getShortNameInOwnerDeclinedCard());
@@ -74,7 +73,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test5() {
+    void thereShouldBeMessagesOfAnEmptyForm() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getEmptyForm());
@@ -83,7 +82,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test6() {
+    void shouldInvalidFieldMessageInvalidMonthApproved() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getInvalidMonthApprovedCard());
@@ -91,7 +90,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test7() {
+    void shouldInvalidFieldMessageInvalidMonthDeclined() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getInvalidMonthDeclinedCard());
@@ -99,7 +98,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test8() {
+    void shouldInvalidFieldMessageBygoneMonthApproved() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getBygoneMonthApprovedCard());
@@ -107,7 +106,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test9() {
+    void  shouldInvalidFieldMessageBygoneMonthDeclined() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getBygoneMonthDeclinedCard());
@@ -115,7 +114,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test10() {
+    void shouldInvalidFieldMessageIncompleteField() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getIncompleteField());
@@ -125,7 +124,7 @@ public class TestCreditCard {
 
 
     @Test
-    void test11() {
+    void shouldCharactersInFieldOwnerDeclined() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getCharactersInFieldOwnerDeclinedCard());
@@ -133,7 +132,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test12() {
+    void shouldOneCharacterInFieldOwnerApprovedCard() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getOneCharacterInFieldOwnerApprovedCard());
@@ -141,7 +140,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test13() {
+    void shouldOneCharacterInFieldOwnerDeclinedCard() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getOneCharacterInFieldOwnerDeclinedCard());
@@ -149,7 +148,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test14() {
+    void shouldInvalidFieldMessageBygoneYearApprovedCard() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getBygoneYearApprovedCard());
@@ -157,7 +156,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test15() {
+    void shouldInvalidFieldMessageBygoneYearDeclinedCard() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getBygoneYearDeclinedCard());
@@ -165,7 +164,7 @@ public class TestCreditCard {
     }
 
     @Test
-    void test16() {
+    void shouldInvalidDebitCard() {
         var startPage = new StartPage();
         var debitPage = startPage.openBuyWithCredit();
         debitPage.fillData(DataHelper.getNonExistentCard());
@@ -174,21 +173,13 @@ public class TestCreditCard {
 
 
     @Test
-    void test17() {
+    void shouldAmountByCardWithDeclined() {
         var startPage = new StartPage();
         var buyWithCard = startPage.openBuyWithCredit();
         buyWithCard.fillData(DataHelper.getApprovedCard());
         buyWithCard.waitNotificationError();
-        assertEquals("null", SqlHelper.getAmountStatus());
+        assertEquals("null", SqlHelper.getRowsAmountFromPaymentEntityTable());
     }
 
-    @Test
-    void test18() {
-        var startPage = new StartPage();
-        var buyWithCredit = startPage.openBuyWithCredit();
-        buyWithCredit.fillData(DataHelper.getApprovedCard());
-        buyWithCredit.waitNotificationError();
-        assertEquals("APPROVED", SqlHelper.getAmountStatus());
 
-    }
 }
