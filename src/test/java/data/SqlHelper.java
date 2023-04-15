@@ -3,10 +3,10 @@ package data;
 import lombok.SneakyThrows;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
-
+import org.apache.commons.dbutils.handlers.BeanHandler;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
+
 
 public class SqlHelper {
     private static QueryRunner runner = new QueryRunner();
@@ -33,21 +33,19 @@ public class SqlHelper {
 
 
     @SneakyThrows
-    public static long getRowAmountFromCreditRequestEntityTable(){
-        var statusSQl = "SELECT count(*) FROM credit_request_entity;";
+    public static String getCreditRequestEntityData(){
+        var statusSQl = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
         return runner.query(conn, statusSQl, new ScalarHandler<>());
     }
 
-
     @SneakyThrows
-    public static long getRowAmountFromOrderEntityTable(){
-        var statusSQl = "SELECT count(*) FROM order_entity;";
+    public static String getOrderEntityData(){
+        var statusSQl = "SELECT * FROM order_entity ORDER BY created DESC LIMIT 1;";
         return runner.query(conn,statusSQl,new ScalarHandler<>());
     }
     @SneakyThrows
-    public static long getRowsAmountFromPaymentEntityTable() {
-        var statusSQL = "SELECT count(*) FROM payment_entity;";
+    public static String getPaymentsEntityData() {
+        var statusSQL = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1;";
         return runner.query(conn, statusSQL, new ScalarHandler<>());
     }
 }
-

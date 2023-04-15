@@ -9,9 +9,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import pages.StartPage;
-
-import java.sql.SQLException;
-
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -44,7 +41,7 @@ public class TestCreditCard {
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getApprovedCard());
         buyWithCredit.waitNotificationOk();
-        assertEquals("APPROVED", SqlHelper.getRowAmountFromOrderEntityTable());
+        assertEquals("APPROVED",SqlHelper.getCreditRequestEntityData());
     }
 
     @Test
@@ -53,7 +50,7 @@ public class TestCreditCard {
         var buyWithCredit = startPage.openBuyWithCredit();
         buyWithCredit.fillData(DataHelper.getDeclinedCard());
         buyWithCredit.waitNotificationError();
-        assertEquals("DECLINED", SqlHelper.getRowAmountFromOrderEntityTable());
+        assertEquals("DECLINED", SqlHelper.getCreditRequestEntityData());
     }
 
     @Test
@@ -68,7 +65,7 @@ public class TestCreditCard {
     void shouldShortNameInOwnerDeclined() {
         var startPage = new StartPage();
         var buyWithCredit = startPage.openBuyWithCredit();
-        buyWithCredit.fillData(DataHelper.getShortNameInOwnerDeclinedCard());
+        buyWithCredit.fillData(DataHelper.getShortNameInOwnerApprovedCard());
         buyWithCredit.waitNotificationError();
     }
 
@@ -178,7 +175,7 @@ public class TestCreditCard {
         var buyWithCard = startPage.openBuyWithCredit();
         buyWithCard.fillData(DataHelper.getApprovedCard());
         buyWithCard.waitNotificationError();
-        assertEquals("null", SqlHelper.getRowsAmountFromPaymentEntityTable());
+        assertEquals("null", SqlHelper.getCreditRequestEntityData());
     }
 
 

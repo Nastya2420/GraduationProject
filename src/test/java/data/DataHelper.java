@@ -12,35 +12,35 @@ public class DataHelper {
     private DataHelper(){
     }
     private static String getMonth() {
-        LocalDate localDate = LocalDate.now();
+        var localDate = LocalDate.now();
         var month = localDate.getMonthValue();
         return String.format("%02d", month);
     }
 
     private static String getBygoneMonth() {
-        LocalDate localDate = LocalDate.now();
+        var localDate = LocalDate.now();
         var month = localDate.minusMonths(1).getMonthValue();
         return String.format("%02d", month);
     }
 
     private static String getYear() {
-        DateFormat df = new SimpleDateFormat("yy");
+        var df = new SimpleDateFormat("yy");
         return df.format(Calendar.getInstance().getTime());
     }
 
     private static String getBygoneYear() {
-        LocalDate localDate = LocalDate.now();
+        var localDate = LocalDate.now();
         var year = localDate.minusYears(1).getYear();
         return String.format("%02d", year);
     }
 
     private static String getName() {
-        Faker faker = new Faker();
+        var faker = new Faker();
         return faker.name().firstName() + " " + faker.name().lastName();
     }
 
     private static String getCvc() {
-        Random random = new Random();
+        var random = new Random();
         var cvc = random.nextInt((1000 - 1));
         return String.format("%03d", cvc);
     }
@@ -50,6 +50,7 @@ public class DataHelper {
     }
 
     private static String getDeclinedCardNumber() {
+
         return "4444 4444 4444 4442";
     }
 

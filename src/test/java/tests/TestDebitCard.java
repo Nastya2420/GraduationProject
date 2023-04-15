@@ -44,7 +44,7 @@ public class TestDebitCard {
         var buyWithCard = startPage.openBuyWithCard();
         buyWithCard.fillData(DataHelper.getApprovedCard());
         buyWithCard.waitNotificationOk();
-        assertEquals("APPROVED", SqlHelper.getRowsAmountFromPaymentEntityTable());
+        assertEquals("APPROVED", SqlHelper.getOrderEntityData());
     }
     @Test
     void shouldDebitByCardWithDecline() {
@@ -52,7 +52,7 @@ public class TestDebitCard {
         var buyWithCard = startPage.openBuyWithCard();
         buyWithCard.fillData(DataHelper.getDeclinedCard());
         buyWithCard.waitNotificationError();
-        assertEquals("DECLINED", SqlHelper.getRowsAmountFromPaymentEntityTable());
+        assertEquals("DECLINED", SqlHelper.getOrderEntityData());
     }
 
     @Test
