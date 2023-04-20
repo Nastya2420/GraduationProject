@@ -34,18 +34,13 @@ public class SqlHelper {
 
     @SneakyThrows
     public static String getCreditRequestEntityData(){
-        var statusSQl = "SELECT * FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
-        return runner.query(conn, statusSQl, new ScalarHandler<>());
+        var statusQl = "SELECT status FROM credit_request_entity ORDER BY created DESC LIMIT 1;";
+        return runner.query(conn, statusQl, new ScalarHandler<>());
     }
 
     @SneakyThrows
-    public static String getOrderEntityData(){
-        var statusSQl = "SELECT * FROM order_entity ORDER BY created DESC LIMIT 1;";
-        return runner.query(conn,statusSQl,new ScalarHandler<>());
-    }
-    @SneakyThrows
     public static String getPaymentsEntityData() {
-        var statusSQL = "SELECT * FROM payment_entity ORDER BY created DESC LIMIT 1;";
-        return runner.query(conn, statusSQL, new ScalarHandler<>());
+        var statusQL = "SELECT status FROM payment_entity ORDER BY created DESC LIMIT 1;";
+        return runner.query(conn, statusQL, new ScalarHandler<>());
     }
 }
